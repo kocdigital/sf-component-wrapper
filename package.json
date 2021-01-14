@@ -8,10 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "jest",
-    "lint": "eslint src",
-    "build": "rollup -c",
-    "prepare": "rollup -c"
+    "test": "jest"
   },
   "keywords": [
     "vue",
