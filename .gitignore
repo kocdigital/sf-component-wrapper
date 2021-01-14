@@ -1,0 +1,10 @@
+.idea/*
+.nyc_output
+
+node_modules
+sf-component-wrapper/node_modules
+sf-cli-service/node_modules
+test
+coverage
+*.log
+package-lock.json
