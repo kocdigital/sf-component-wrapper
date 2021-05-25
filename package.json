@@ -1,5 +1,5 @@
 {
-  "name": "@kocdigital/sf-pagewrapper",
+  "name": "@sf/web-component-wrapper",
   "version": "1.0.0",
   "description": "wrap a sf component as a web component. fork from vue wrapper",
   "main": "dist/sf-wc-wrapper.js",
@@ -16,10 +16,10 @@
   ],
   "author": "Özgür Çimen",
   "license": "MIT",
-  "homepage": "https://github.com/kocdigital/sf-pagewrapper#readme",
+  "homepage": "https://github.com/vuejs/web-component-wrapper#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kocdigital/sf-pagewrapper.git"
+    "url": "https://github.com/kocdigital/sf-component-wrapper.git"
   },
   "devDependencies": {
     "eslint": "^4.16.0",
