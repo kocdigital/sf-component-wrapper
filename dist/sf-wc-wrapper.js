@@ -96,12 +96,27 @@ function getAttributes(node) {
 }
 
 function defineComponent(Vue, Component) {
-    const p = Component.prototype;
-    if (!p.constructor) throw new Error('SF component must have constructor!');
-    if (!p.constructor.options)  throw new Error('SF component must have constructor options!');
-    if (!p.constructor.options.name || p.constructor.options.name.length < 1)  throw new Error('SF component must have name!');
-    const {constructor} = p;
-    const name = constructor.options.name + '-remote'
+    let componentOptions = {};
+    const componentProto = Component.prototype;
+
+    if (componentProto?.constructor) {
+        if (!componentProto.constructor?.options) throw new Error('SF component must have constructor options!');
+
+        Object.assign(componentOptions, componentProto.constructor.options);
+    } else if (typeof componentProto === 'function') {
+        if (!Component?.options) throw new Error('SF component must have options!');
+
+        Object.assign(componentOptions, componentProto.options);
+    } else {
+        Object.assign(componentOptions, componentProto);
+    }
+
+    if (!componentOptions.name || componentOptions.name.length < 1) throw new Error('SF component must have name!');
+    if (!componentProto?.constructor && (!componentOptions?.setup || (componentOptions?.setup && typeof componentOptions.setup !== 'function'))) {
+        throw new Error(`${componentOptions.name} SF component must use Composition API!`);
+    }
+
+    const name = componentOptions.name + '-remote';
     window.customElements.define(name, wrap(Vue, Component));
 }
 
