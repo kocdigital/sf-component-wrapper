@@ -96,23 +96,34 @@ function getAttributes(node) {
 }
 
 function defineComponent(Vue, Component) {
+    /**
+     * Component's Options API
+     */
     let componentOptions = {};
+    /**
+     * Class based component prototype
+     * @see {@link https://github.com/vuejs/vue-class-component}
+     */
     const componentProto = Component.prototype;
 
-    if (componentProto?.constructor) {
-        if (!componentProto.constructor?.options) throw new Error('SF component must have constructor options!');
+    if (componentProto.constructor) {
+        // Check class based component's Options API
+        if (!componentProto.constructor.options) throw new Error('SF component must have constructor options!');
 
         Object.assign(componentOptions, componentProto.constructor.options);
     } else if (typeof Component === 'function') {
-        if (!Component?.options) throw new Error('SF component must have options!');
+        // Check functional component's Options API
+        if (!Component.options) throw new Error('SF component must have options!');
 
         Object.assign(componentOptions, Component.options);
     } else {
+        // Check object component's Options API
         Object.assign(componentOptions, Component);
     }
 
     if (!componentOptions.name || componentOptions.name.length < 1) throw new Error('SF component must have name!');
-    if (!componentProto?.constructor && typeof componentOptions?.setup !== 'function') {
+    if (!componentProto.constructor && typeof componentOptions.setup !== 'function') {
+        // Enforce Composition API if class components is not used
         throw new Error(`${componentOptions.name} SF component must use Composition API!`);
     }
 
