@@ -112,7 +112,7 @@ function defineComponent(Vue, Component) {
     }
 
     if (!componentOptions.name || componentOptions.name.length < 1) throw new Error('SF component must have name!');
-    if (!componentProto?.constructor && (!componentOptions?.setup || (componentOptions?.setup && typeof componentOptions.setup !== 'function'))) {
+    if (!componentProto?.constructor && typeof componentOptions?.setup !== 'function') {
         throw new Error(`${componentOptions.name} SF component must use Composition API!`);
     }
 
