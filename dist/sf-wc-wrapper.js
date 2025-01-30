@@ -106,7 +106,7 @@ function defineComponent(Vue, Component) {
      */
     const componentProto = Component.prototype;
 
-    if (componentProto.constructor) {
+    if (componentProto && componentProto.constructor) {
         // Check class based component's Options API
         if (!componentProto.constructor.options) throw new Error('SF component must have constructor options!');
 
@@ -122,7 +122,7 @@ function defineComponent(Vue, Component) {
     }
 
     if (!componentOptions.name || componentOptions.name.length < 1) throw new Error('SF component must have name!');
-    if (!componentProto.constructor && typeof componentOptions.setup !== 'function') {
+    if (componentProto && !componentProto.constructor && typeof componentOptions.setup !== 'function') {
         // Enforce Composition API if class components is not used
         throw new Error(`${componentOptions.name} SF component must use Composition API!`);
     }
